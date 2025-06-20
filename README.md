@@ -6,8 +6,8 @@ Un addon per Stremio che estrae sorgenti streaming dal sito vixsrc per permetter
 
 ## ✨ Funzionalità Principali
 
-* **✅ Supporto Film:** Trova flussi streaming per i film utilizzando il loro ID IMDB.
-* **📺 Supporto Serie TV:** Trova flussi per ogni episodio di una serie TV, basandosi su ID IMDB e formato stagione/episodio.
+* **✅ Supporto Film:** Trova flussi streaming per i film utilizzando il loro ID TMDB.
+* **📺 Supporto Serie TV:** Trova flussi per ogni episodio di una serie TV, basandosi su ID TMDB e formato stagione/episodio.
 * **🔗 Integrazione Perfetta:** Si integra meravigliosamente con l'interfaccia di Stremio per un'esperienza utente fluida.
 
 ---
