@@ -111,7 +111,7 @@ async function checkTmdbIdOnVixSrc(tmdbId: string, type: ContentType): Promise<b
     const data = await response.json();
     // L'API restituisce un array di oggetti, ognuno con una proprietà 'id' che è l'ID TMDB
     if (data && Array.isArray(data)) {
-      const exists = data.some((item: any) => item.id && item.id.toString() === tmdbId.toString()); // Assicura confronto tra stringhe
+      const exists = data.some((item: any) => item.tmdb_id && item.tmdb_id.toString() === tmdbId.toString()); // CORREZIONE: usa item.tmdb_id
       console.log(`VIX_CHECK: TMDB ID ${tmdbId} ${exists ? 'found' : 'NOT found'} in VixSrc list.`);
       return exists;
     } else {
