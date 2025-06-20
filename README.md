@@ -105,9 +105,10 @@ Assicurati che i percorsi `context` e `env_file` nel file `docker-compose.yml` s
 Crea un file `.env` nel percorso specificato (es. `/home/pi/vix/.env`) e inserisci le tue variabili ( `TMDB_API_KEY`, `MFP_URL`, `MFP_PSW`). Ecco un esempio di `.env`:
 
 ```env
-TMDB_API_KEY=la_tua_chiave_api_di_tmdb
-MFP_URL=[https://username-mfp.hf.space](https://username-mfp.hf.space)
-MFP_PSW=la_tua_password_mfp
+TMDB_API_KEY="la_tua_chiave_api_di_tmdb"
+MFP_URL="https://username-mfp.hf.space"
+MFP_PSW="la_tua_password_mfp"
+PORT="portacustom"
 ```
 #### Esegui Docker Compose
 
