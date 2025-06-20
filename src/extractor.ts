@@ -111,7 +111,7 @@ async function checkTmdbIdOnVixSrc(tmdbId: string, type: ContentType): Promise<b
     const data = await response.json();
     // L'API restituisce un array di oggetti, ognuno con una proprietà 'id' che è l'ID TMDB
     if (data && Array.isArray(data)) {
-      const exists = data.some((item: any) => item.id && item.id.toString() === tmdbId);
+      const exists = data.some((item: any) => item.id && item.id.toString() === tmdbId.toString()); // Assicura confronto tra stringhe
       console.log(`VIX_CHECK: TMDB ID ${tmdbId} ${exists ? 'found' : 'NOT found'} in VixSrc list.`);
       return exists;
     } else {
@@ -126,20 +126,27 @@ async function checkTmdbIdOnVixSrc(tmdbId: string, type: ContentType): Promise<b
 
 export async function getUrl(id: string, type: ContentType): Promise<string | null> {
   if (type == "movie") {
-    const tmdbId = await getTmdbIdFromImdbId(id);
+    const imdbIdForMovie = id; // L'ID passato è l'IMDB ID per i film
+    const tmdbId = await getTmdbIdFromImdbId(imdbIdForMovie);
     if (!tmdbId) return null;
     // Verifica se l'ID TMDB del film esiste su VixSrc
     const existsOnVixSrc = await checkTmdbIdOnVixSrc(tmdbId, type);
-    if (!existsOnVixSrc) return null;
+    if (!existsOnVixSrc) {
+      console.log(`TMDB ID ${tmdbId} (from IMDB ${imdbIdForMovie}) for movie not found in VixSrc list. Skipping.`);
+      return null;
+    }
     return `${VIXCLOUD_SITE_ORIGIN}/movie/${tmdbId}/?lang=it`;
   } else {
     // Series: https://vixsrc.to/tv/tmdbkey/season/episode/?lang=it
     const obj = getObject(id);
-    const tmdbSeriesId = await getTmdbIdFromImdbId(obj.id);
+    const tmdbSeriesId = await getTmdbIdFromImdbId(obj.id); // Converti IMDB ID della serie in TMDB ID
     if (!tmdbSeriesId) return null;
     // Verifica se l'ID TMDB della serie esiste su VixSrc
     const existsOnVixSrc = await checkTmdbIdOnVixSrc(tmdbSeriesId, type);
-    if (!existsOnVixSrc) return null;
+    if (!existsOnVixSrc) {
+      console.log(`TMDB ID ${tmdbSeriesId} (from IMDB ${obj.id}) for series not found in VixSrc list. Skipping.`);
+      return null;
+    }
     return `${VIXCLOUD_SITE_ORIGIN}/tv/${tmdbSeriesId}/${obj.season}/${obj.episode}/?lang=it`;
   }
 }
