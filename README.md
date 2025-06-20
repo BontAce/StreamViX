@@ -83,7 +83,7 @@ services:
       args:
         # Argomenti passati al Dockerfile durante la build per clonare il repo.
         # Puoi sovrascriverli con un file .env o da terminale.
-        GIT_REPO_URL: ${GIT_REPO_URL:-[https://github.com/emaschi5/vix.git](https://github.com/emaschi5/vix.git)}
+        GIT_REPO_URL: ${GIT_REPO_URL:https://github.com/emaschi5/StreamViX.git}
         GIT_BRANCH: ${GIT_BRANCH:-main}
     ports:
       # Mappa la porta 7860 del container a quella della tua VPS.
